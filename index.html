@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TR Film — Filmmaker & Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --black: #080808;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --gray: #888;
+    --white: #f5f5f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    overflow: hidden;
+  }
+
+  .hero-video-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+    transform: scale(1.05);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(8,8,8,1) 0%,
+      rgba(8,8,8,0.5) 40%,
+      rgba(8,8,8,0.2) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.65;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 4rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: var(--white);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.5); opacity: 0.1; }
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    opacity: 0.65;
+    margin-top: 1.5rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .stat {
+    background: var(--dark2);
+    padding: 2rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-top: 0.5rem;
+  }
+
+  /* WORK */
+  .work { border-top: 1px solid rgba(255,255,255,0.06); }
+
+  .work-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .work-card {
+    position: relative;
+    background: var(--dark2);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .work-card.featured {
+    grid-column: span 2;
+  }
+
+  .video-thumb {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #0a0a0a;
+    overflow: hidden;
+  }
+
+  .video-thumb iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .card-info {
+    padding: 1.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-desc {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    line-height: 1.5;
+  }
+
+  .card-role {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.35rem 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  /* KIT */
+  .kit { border-top: 1px solid rgba(255,255,255,0.06); background: var(--dark); }
+
+  .kit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .kit-item {
+    background: var(--black);
+    padding: 2rem 1.75rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .kit-item:hover { border-color: var(--gold); }
+
+  .kit-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+  }
+
+  .kit-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .kit-detail {
+    font-size: 0.75rem;
+    opacity: 0.4;
+    line-height: 1.5;
+  }
+
+  /* CONTACT */
+  .contact {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    padding: 7rem 4rem;
+  }
+
+  .contact .section-label { justify-content: center; }
+  .contact .section-label::after { display: none; }
+  .contact .section-label::before {
+    content: '';
+    flex: 0;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .contact-sub {
+    font-size: 1rem;
+    opacity: 0.5;
+    margin: 1.5rem auto 3rem;
+    max-width: 400px;
+    line-height: 1.7;
+  }
+
+  .contact-email {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-decoration: none;
+    transition: opacity 0.3s;
+    display: block;
+    margin-bottom: 3rem;
+  }
+
+  .contact-email:hover { opacity: 0.7; }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .social-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.4;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .social-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+  }
+
+  footer p {
+    font-size: 0.75rem;
+    opacity: 0.3;
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    .hero { padding: 0 2rem 4rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card.featured { grid-column: span 1; }
+    .kit-grid { grid-template-columns: repeat(2, 1fr); }
+    .scroll-indicator { right: 2rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">TR Film</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#kit">Kit</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/DOZyFwaVa7E?autoplay=1&mute=1&loop=1&playlist=DOZyFwaVa7E&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Filmmaker &amp; Editor — Wolverhampton</div>
+    <h1>Frame.<br>Cut.<br><span>Deliver.</span></h1>
+    <p class="hero-sub">From on-location shoots with the Sony A7 III to multi-source edits and S-Log colour grades — I create visual content that lands.</p>
+    <a href="#work" class="hero-cta">View Work ↓</a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about fade-up">
+    <div class="about-text">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Full-Stack<br>Visual Production</h2>
+      <p>Based in Wolverhampton, I work across the full production pipeline — from planning and on-location camera operation through to editing, colour grading, and final delivery.</p>
+      <p>Over the past 12 months working with HashAI I've filmed live events, directed talking-head interviews, and graded raw S-Log footage shot by videographers in the UAE. Alongside that I've produced brand content for clients including Optimise Care and covered automotive events for Yiannimize.</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Months Commercial Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Client Brands</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">A7III</div>
+        <div class="stat-label">Sony Full Frame</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">DV</div>
+        <div class="stat-label">DaVinci Resolve</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="work">
+  <div class="work-intro fade-up">
+    <div>
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="work-grid">
+    <div class="work-card featured fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/DOZyFwaVa7E?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">HashAI — UAE Brand Film</div>
+          <div class="card-desc">S-Log footage from an external videographer in the UAE — colour graded and edited into a luxury brand film featuring high-end automotive.</div>
+        </div>
+        <div class="card-role">Colour Grade &amp; Edit</div>
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/SAseaaH_LCY?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">Optimise Care — Hero Film</div>
+          <div class="card-desc">Hero brand film shot and edited for client website. Captures the feel and values of the Optimise Care brand.</div>
+        </div>
+        <div class="card-role">Filmed &amp; Edited</div>
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/3YV0KL0r4Yc?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">Optimise Care — Website Content</div>
+          <div class="card-desc">On-location filming for website video content. Part of an ongoing content relationship with Optimise Care.</div>
+        </div>
+        <div class="card-role">Filmed &amp; Edited</div>
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/k7zJgerzYTM?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">HashAI — CIO Interview</div>
+          <div class="card-desc">On-camera interview with HashAI CIO Irun discussing the progression and vision of the company.</div>
+        </div>
+        <div class="card-role">Filmed &amp; Edited</div>
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/BbxCv8DQv68?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">Yiannimize Car Show</div>
+          <div class="card-desc">Event coverage of the Yiannimize automotive show. Shot on Sony A7 III.</div>
+        </div>
+        <div class="card-role">Filmed &amp; Edited</div>
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/lwvui5sggiw?controls=1&rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-title">Singapore Token 2049</div>
+          <div class="card-desc">Edit of event coverage from the Singapore Token 2049 crypto conference. Multi-source footage assembled into a cohesive event film.</div>
+        </div>
+        <div class="card-role">Editor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT -->
+<section id="kit" class="kit">
+  <div class="fade-up">
+    <div class="section-label">Equipment</div>
+    <h2 class="section-title">The Kit</h2>
+  </div>
+  <div class="kit-grid fade-up">
+    <div class="kit-item">
+      <div class="kit-icon">📷</div>
+      <div class="kit-name">Sony A7 III</div>
+      <div class="kit-detail">Full-frame mirrorless. S-Log2 / S-Log3 capable. Cinema-quality image in a compact body.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">🎬</div>
+      <div class="kit-name">DaVinci Resolve</div>
+      <div class="kit-detail">Full edit, colour grade, and finishing pipeline. S-Log colour grading, node-based colour work.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">🎙️</div>
+      <div class="kit-name">Audio</div>
+      <div class="kit-detail">Professional microphone setup for clean on-location audio capture and interview recording.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">💡</div>
+      <div class="kit-name">Lighting</div>
+      <div class="kit-detail">Portable lighting rig for interviews and controlled indoor shoots.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">🚁</div>
+      <div class="kit-name">DJI Osmo</div>
+      <div class="kit-detail">Stabilised handheld for fast-moving event coverage and dynamic b-roll.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">🖥️</div>
+      <div class="kit-name">Edit Suite</div>
+      <div class="kit-detail">Dedicated editing workstation capable of handling 4K RAW and multi-cam timelines.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">🎨</div>
+      <div class="kit-name">Colour Grading</div>
+      <div class="kit-detail">S-Log to rec.709 transforms, LUT-based workflows, and custom node structures for brand-consistent looks.</div>
+    </div>
+    <div class="kit-item">
+      <div class="kit-icon">✈️</div>
+      <div class="kit-name">Location Ready</div>
+      <div class="kit-detail">Available for travel. Previous experience filming internationally for client projects.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact fade-up">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Let's Work Together</h2>
+  <p class="contact-sub">Available for filming, editing, and colour grade projects. Based in Wolverhampton, available UK-wide.</p>
+  <a href="mailto:hello@trfilm.co.uk" class="contact-email">hello@trfilm.co.uk</a>
+  <div class="social-links">
+    <a href="https://www.instagram.com/tiimrobbiins" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@t11mrp" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">TR Film</div>
+  <p>© 2025 TR Film — Timothy Robbins</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
